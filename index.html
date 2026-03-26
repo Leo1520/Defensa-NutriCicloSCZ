@@ -301,10 +301,10 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">Quiénes Somos</a></li>
         <li class="nav-item"><a class="nav-link" href="#empathy">Mapa de Empatía</a></li>
-        <li class="nav-item"><a class="nav-link" href="#materiales">Materiales</a></li>
         <li class="nav-item"><a class="nav-link" href="#canvas">Canvas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
         <li class="nav-item"><a class="nav-link" href="#circular">R's Circular</a></li>
+        <li class="nav-item"><a class="nav-link" href="#materiales">Materiales</a></li>
+        <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
         <li class="nav-item"><a class="nav-link" href="#innovacion">MODELODE NEGOCIO</a></li>
       </ul>
     </div>
@@ -1120,6 +1120,104 @@ function switchRec(tab,btn){
   if(tab==='ene') btn.className='rec-tab-btn active-ene';
   if(tab==='nat') btn.className='rec-tab-btn active-nat';
 }
+// ══════════════════════════════════════════════
+//   NAVEGACIÓN POR TECLADO TIPO DIAPOSITIVA
+// ══════════════════════════════════════════════
+
+// 1. Definimos el orden exacto de los IDs de tus secciones
+const sections = [
+  'hero', 
+  'about', 
+  'empathy', 
+  'canvas', 
+  'circular',
+  'materiales', 
+  'recursos', 
+  'innovacion'
+];
+
+// 2. Función para saber en qué sección estamos actualmente
+function getCurrentSectionIndex() {
+  let index = 0;
+  let minDistance = Infinity;
+  
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      // Calculamos la distancia de la sección respecto a la parte superior de la ventana
+      const rect = el.getBoundingClientRect();
+      const distance = Math.abs(rect.top); 
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        index = i;
+      }
+    }
+  });
+  return index;
+}
+
+// 3. Función para hacer scroll suave restando el espacio del navbar
+function scrollToSection(index) {
+  if (index >= 0 && index < sections.length) {
+    const el = document.getElementById(sections[index]);
+    if (el) {
+      const navbarHeight = document.getElementById('mainNav').offsetHeight;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+  
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+// 4. Escuchamos las teclas del teclado
+document.addEventListener('keydown', (e) => {
+  // Evitamos que las flechas cambien de sección si el modal del mapa de empatía está abierto
+  if (document.querySelector('.modal.show')) return;
+
+  const currentIndex = getCurrentSectionIndex();
+
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault(); // Evita el scroll nativo brusco
+    scrollToSection(currentIndex + 1);
+  } 
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    scrollToSection(currentIndex - 1);
+  }
+});
+// 5. Sincronizar el Navbar con la sección visible
+const navLinks = document.querySelectorAll('#mainNav .nav-link');
+
+window.addEventListener('scroll', () => {
+  let currentSection = '';
+
+  // Detectamos qué sección está en la pantalla
+  sections.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      const navbarHeight = document.getElementById('mainNav').offsetHeight;
+      // Restamos el navbar y un pequeño margen de 10px para que el cambio sea exacto
+      const sectionTop = section.offsetTop - navbarHeight - 10; 
+      
+      if (window.scrollY >= sectionTop) {
+        currentSection = id;
+      }
+    }
+  });
+
+  // Limpiamos la clase 'active' de todos los enlaces y se la damos al correcto
+  navLinks.forEach((link) => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === `#${currentSection}`) {
+      link.classList.add('active');
+    }
+  });
+});
 </script>
 </body>
 </html>
