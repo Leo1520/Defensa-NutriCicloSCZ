@@ -229,6 +229,57 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
+/* ── ESFUERZOS Y RESULTADOS ── */
+.er-card {
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.er-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.1);
+}
+.er-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 6px;
+}
+.esfuerzos-card::before { background: #e53935; }
+.resultados-card::before { background: var(--g3); }
+
+.er-title {
+  font-weight: 900;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 1.8rem;
+  letter-spacing: .08em;
+}
+.esfuerzos-card .er-title { color: #c62828; }
+.resultados-card .er-title { color: var(--g1); }
+
+.er-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.er-list li {
+  display: flex;
+  gap: .8rem;
+  align-items: flex-start;
+  font-size: .86rem;
+  color: #5a7a4a;
+  line-height: 1.6;
+}
+.icon-esf { color: #e53935; font-size: 1.2rem; flex-shrink: 0; }
+.icon-res { color: var(--g3); font-size: 1.2rem; flex-shrink: 0; }
+
 </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
@@ -441,7 +492,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 <section id="empathy">
   <div class="container-fluid px-4 px-lg-5">
     <div class="text-center mb-4" data-aos="fade-up">
-      <div class="sec-label">Actividad 3</div>
+      <div class="sec-label">Actividad 1</div>
       <h2 class="sec-title">Mapa de <span>Empatía</span></h2>
       <p class="sec-desc mx-auto mt-2">Haz clic en cada sección para ver el contenido detallado.</p>
     </div>
@@ -496,6 +547,59 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 
     </div><!-- /emp-map-wrap -->
   </div>
+  <div class="container mt-5 pt-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="row g-4 align-items-stretch">
+        
+        <div class="col-md-6">
+          <div class="er-card esfuerzos-card h-100">
+            <h4 class="er-title">ESFUERZOS</h4>
+            <ul class="er-list">
+              <li>
+                <i class="bi bi-x-circle-fill icon-esf"></i> 
+                Invertir gran parte de su presupuesto en suplementos tradicionales caros (soya, maíz) durante las largas sequías cruceñas.
+              </li>
+              <li>
+                <i class="bi bi-exclamation-triangle-fill icon-esf"></i> 
+                Desconfianza inicial o temor frente a nuevos ingredientes (proteína BSF y derivados de matadero) para alimentar a su ganado.
+              </li>
+              <li>
+                <i class="bi bi-truck icon-esf"></i> 
+                Estrés y dificultades logísticas para transportar alimento voluminoso a estancias o propiedades alejadas.
+              </li>
+              <li>
+                <i class="bi bi-heartbreak-fill icon-esf"></i> 
+                Angustia constante por la pérdida de peso y el alto riesgo de mortalidad de sus reses cuando el pasto escasea.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="er-card resultados-card h-100">
+            <h4 class="er-title">RESULTADOS</h4>
+            <ul class="er-list">
+              <li>
+                <i class="bi bi-check-circle-fill icon-res"></i> 
+                Reducción drástica de la mortalidad y mantenimiento del peso productivo del ganado incluso en la época más crítica del año.
+              </li>
+              <li>
+                <i class="bi bi-graph-down-arrow icon-res"></i> 
+                Ahorro económico significativo al reemplazar fuentes de proteína importadas por una alternativa circular y de producción local.
+              </li>
+              <li>
+                <i class="bi bi-shield-check icon-res"></i> 
+                Tranquilidad al contar con un bloque nutricional seguro, de alto valor biológico (42-50% proteína) y muy fácil de almacenar en la propiedad.
+              </li>
+              <li>
+                <i class="bi bi-tree-fill icon-res"></i> 
+                Sentir que su compra contribuye a un Santa Cruz más limpio, evitando que miles de toneladas de vísceras contaminen el Río Piraí.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
 </section>
 
 <!-- MODAL EMPATÍA -->
